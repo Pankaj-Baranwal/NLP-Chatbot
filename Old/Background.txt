@@ -1,0 +1,21 @@
+Conversation:
+
+A: Hello. My name is XYZ.
+B: Hey. I am ABC. Where are you from?
+A: I am from LMN. How are you doing?
+B: I am doing just fine. So, have you come to PQR for a business trip?
+A: No. I have come to visit my friend, HIJ, who lives here. But I think I have lost my way.
+B: Oh, that is sad. Where does your friend live?
+A: My friend lives near KLM.
+B: That is where I live too. I can drop you there if you would like.
+A: Oh, that would be great!
+
+
+
+Questions: 
+01) What is the name of the person talking?
+02) Where does XYZ live?
+03) Why has XYZ come to PQR?
+04) What is XYZ's current location?
+05) What is the name of XYZ's friend?
+06) Where does XYZ's friend live?

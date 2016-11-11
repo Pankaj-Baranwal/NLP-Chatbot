@@ -1,0 +1,12 @@
+Words in language:
+
+question [what, where, why, when, how]
+noun [name, cat, hat]
+pronoun [you, my, there, he, she]
+verb [be(is, am, are, will), play, ]
+negations [no, not, never]
+articles [a, an, the]
+consonents [(a-z) - vowel]
+vowel [a, e, i, o, u]
+if any letter occurs more than twice in a word, then it is filler word.
+If there are just consonents, then it is probably filler word.

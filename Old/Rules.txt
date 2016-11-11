@@ -1,0 +1,30 @@
+01) Start of sentence is with a capital letter.
+02) A sentence ends with ('.', '?' or '!').
+03) 
+
+
+
+01) Phonology		Not needed
+02) Morphology		construction of words(from more basic meaning units)
+03) Syntax			How we put together words to form correct sentences and determines what structural role each word plays in the sentence and what phrases are subparts of other phrases.
+04) Semantics		What words mean and how these meaning combine in sentence to form sentence meaning. Context-independent meaning.
+05) Pragmatics		How sentences are used in diff situations. How use affects
+06) Discourse		How immediately preceding sentences affect the interpretation of next sentence.
+07) World Knowledge	GK about the world. Other's beliefs and goals.
+
+
+Models and algorithms to resolve ambiguities at diff levels:
+
+I made her duck.
+Different meanings coming out:
+-I cooked duck for her.
+-I cooked duck belonging to her.
+-I created a toy duck which she owns.
+-I caused her to quickly lower her head or body.
+-I used magic and turned her into a duck.
+
+
+01) Parts of speech tagging			Whether duck is noun or verb.
+02) Word-sense disambiguation		Whether make means create or cook.
+03) Lexical disambiguation			01 and 02 are two important kinds.
+04) Syntactic disambiguation		her duck is an example of this. Can be addressed by probabilistic parsing.
