@@ -96,9 +96,10 @@ int readDataFromXML(){
 	}
 }
 
-int main(){
+// int main(){
 	// string s = "Hello, my name is Pankaj. I am a good boy.";
 	// final String regex = "(?:\\s?)((?:(?:[\\\"\\'].*?(?:[\\.?!][\\\"\\'](?:\\s[a-z].*?[\\.?!])?|[\\\"\\'].*?[\\.?!]))|(?:[^.?!\\\"]{2,1000}[\\.?!]?)))";
+void extra(){
 	createXMLDocument();
 	string attributes[][2]={{"a", "b"}, {"d", "e"}};
 	int size = sizeof attributes/ sizeof attributes[0];
