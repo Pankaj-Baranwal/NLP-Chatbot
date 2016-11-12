@@ -1,4 +1,16 @@
 <Root>
-    <word a="b" d="e">string text 1</word>
-    <word a="b" d="e">string text 2</word>
+    <word category="*extra">hey</word>
+    <word category="*extra">hi</word>
+    <word category="*question">whats</word>
+    <word category="*pronoun">your</word>
+    <word category="*noun">name</word>
+    <word category="*extra">hey</word>
+    <word category="*pronoun">my</word>
+    <word category="*noun">name</word>
+    <word category="*verb">is</word>
+    <word category="*verb">is</word>
+    <word category="*pronoun">she</word>
+    <word category="*verb">is</word>
+    <word category="*extra">with</word>
+    <word category="*noun">hat</word>
 </Root>

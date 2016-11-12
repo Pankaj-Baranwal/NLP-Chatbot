@@ -1,0 +1,22 @@
+<Root>
+	<Person>
+		<message>
+			<word category="extra">hey</word>
+			<word category="extra">hey</word>
+		</message>
+		<message>
+			<word category="extra">hey</word>
+			<word category="extra">hey</word>
+		</message>
+	</Person>
+	<Person>
+		<message>
+			<word category="extra">hey</word>
+			<word category="extra">hey</word>
+		</message>
+		<message>
+			<word category="extra">hey</word>
+			<word category="extra">hey</word>
+		</message>
+	</Person>
+</Root>
