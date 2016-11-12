@@ -10,7 +10,7 @@ using namespace std;
 map<string,int> mm;
 int dp[100000];
 
-const int len_ch = 12;
+const int len_ch = 37;
 
 string ch[len_ch]={
 "awkward",
@@ -18,13 +18,38 @@ string ch[len_ch]={
 "backed",
 "background",
 "backing",
-"the",
+"hey",
+"hi",
+"what",
+"whats",
+"name",
+"my",
+"is",
+"am",
+"are",
+"was",
+"were",
+"there",
 "cat",
+"cats",
 "in",
 "the",
 "hat",
+"no",
+"she",
+"playing",
+"with",
+"*article",
+"a",
+"an",
+"the",
+"*pronoun",
+"you",
 "he",
-"at",
+"she",
+"i",
+"my",
+"they",
 // add all words present in the language here.
 };
 

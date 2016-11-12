@@ -42,16 +42,16 @@ int main(){
 				}
 				if (temp.length())
 				{
-					tokens[current] = temp;
+					tokens[current++] = temp;
 				}else{
 					i++;
 				}
 			}
 		}
 	}
-
-	fr(i, current){
-		cout << tokens[i] << endl;
-	}
+	// at this point, we havev all the words separated in the token array.
+	cout << "Tokens: " << endl;
+	fr(i, current) cout << tokens[i] << endl;
+	
 }
 
