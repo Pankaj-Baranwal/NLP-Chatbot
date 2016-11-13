@@ -3,6 +3,7 @@
 #include "senetence_parser.cpp"
 // #include "segment_words.cpp"
 #include <locale>
+#include <sstream>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ int count_words_per_message[10];
 string name1, name2;
 int current_xml = 0;
 
-void searchWordInDictionary(string word, string root_tag, string message_number){
+void searchWordInDictionary(string word, string message_number){
 	ifstream file (dictionary_file.c_str());
 	int found_word = 0;
 	string current_word = "";
@@ -30,7 +31,6 @@ void searchWordInDictionary(string word, string root_tag, string message_number)
 			{
 				current_word += x;
 			}else{
-				cout << " " << word << "  " << current_word << endl;
 				if (current_word[0]=='*')
 				{
 					category = current_word;
@@ -38,7 +38,9 @@ void searchWordInDictionary(string word, string root_tag, string message_number)
 				else if (!strcmp(word.c_str(), current_word.c_str()))
 				{
 					found_word = 1;
-					xml_uploads[current_xml++] = {message_number, current_word, category}
+					xml_uploads[current_xml][0] = message_number;
+					xml_uploads[current_xml][1] = current_word;
+					xml_uploads[current_xml++][2] = category;
 					break;
 				}
 				current_word = "";
@@ -63,12 +65,13 @@ int main(){
 	int i;
 	int counter = 0;
 	int num_of_words = 0;
+	string person_name = "";
 	fr(i, file_content.length()){
 		if (person_name.length())
 		{
 			count_words_per_message[counter++] = num_of_words;
 		}
-		string person_name = "";
+		person_name = "";
 		while (file_content[i] != '\n' && file_content.length()!=i ){
 			// cout << file_content[i] << " a" << endl;
 			string temp = "";
@@ -101,6 +104,7 @@ int main(){
 			}
 		}
 	}
+	count_words_per_message[counter++] = num_of_words;
 	// at this point, we havev all the words separated in the token array.
 
 	// fr(i, current) cout << tokens[i] << endl;
@@ -109,12 +113,16 @@ int main(){
 		int j;
 		string replacement;
 		fr (j, tokens[i].length())
-			replacement += tolower(tokens[i][j],loc);
+			replacement += tolower(tokens[i][j], loc);
 		int k =0;
-		while (i < count_words_per_message[k]){
+		int total = 0;
+		while (i >= total + count_words_per_message[k]){
+			total += count_words_per_message[k];
 			k++;
 		}
-		searchWordInDictionary(replacement, --k);
+		std::stringstream ss;
+		ss << k;
+		searchWordInDictionary(replacement, ss.str());
 	}
-	saveXMLDocument("SavedData.xml");
+	// saveXMLDocument("SavedData.xml");
 }
