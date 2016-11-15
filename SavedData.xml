@@ -1,16 +1,32 @@
 <Root>
-    <word category="*extra">hey</word>
-    <word category="*extra">hi</word>
-    <word category="*question">whats</word>
-    <word category="*pronoun">your</word>
-    <word category="*noun">name</word>
-    <word category="*extra">hey</word>
-    <word category="*pronoun">my</word>
-    <word category="*noun">name</word>
-    <word category="*verb">is</word>
-    <word category="*verb">is</word>
-    <word category="*pronoun">she</word>
-    <word category="*verb">is</word>
-    <word category="*extra">with</word>
-    <word category="*noun">hat</word>
+    <Person name="Person1">
+        <Message>
+            <Word category="*extra">hey</Word>
+            <Word category="*extra">hi</Word>
+            <Word category="*question">whats</Word>
+            <Word category="*pronoun">your</Word>
+            <Word category="*noun">name</Word>
+        </Message>
+    </Person>
+    <Person name="Person2">
+        <Message>
+            <Word category="*extra">hey</Word>
+            <Word category="*pronoun">my</Word>
+            <Word category="*noun">name</Word>
+            <Word category="*verb">is</Word>
+        </Message>
+    </Person>
+    <Person name="Person1">
+        <Message>
+            <Word category="*verb">is</Word>
+        </Message>
+    </Person>
+    <Person name="Person2">
+        <Message>
+            <Word category="*pronoun">she</Word>
+            <Word category="*verb">is</Word>
+            <Word category="*extra">with</Word>
+            <Word category="*noun">hat</Word>
+        </Message>
+    </Person>
 </Root>

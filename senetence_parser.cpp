@@ -17,9 +17,9 @@ using namespace tinyxml2;
 #define fr(i,n) for(i=0;i<n;i++)
 
 // Just copy and paste
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
+
+#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
+
 
 
 // xmlDoc is used for loading and saving to xml file
@@ -41,9 +41,45 @@ void addDataToXMLDocument(string elementName, string text, string attrib_key[][2
 	fr(i, size){
 		// Iterate through the array and add the attributes and actual text.
 		pElement->SetAttribute(attrib_key[i][0].c_str(), attrib_key[i][1].c_str());
-		pElement->SetText(text.c_str());
+	}
+	pElement->SetText(text.c_str());
+	pRoot->InsertEndChild(pElement);
+}
+
+void addDatatoXMLElement(XMLElement * pElement, string elementName, string text, string attrib_key[][2], int size){
+	XMLElement * pElement1 = xmlDoc.NewElement(elementName.c_str());
+	int i;
+	// (sizeof attrib_key/ sizeof attrib_key[0]) => This wont work as all we have is a pointer.
+	// It will return 0 
+	// We need to know the size. Hence we pass the size as an argument
+	fr(i, size){
+		// Iterate through the array and add the attributes and actual text.
+		pElement1->SetAttribute(attrib_key[i][0].c_str(), attrib_key[i][1].c_str());
+	}
+	pElement1->SetText(text.c_str());
+	pElement->InsertEndChild(pElement1);
+}
+
+XMLElement* createChild(string elementName, string attrib_key[][2], int size){
+	XMLElement * pElement = xmlDoc.NewElement(elementName.c_str());
+	int i;
+	fr(i, size){
+		// Iterate through the array and add the attributes and actual text.
+		pElement->SetAttribute(attrib_key[i][0].c_str(), attrib_key[i][1].c_str());
 	}
 	pRoot->InsertEndChild(pElement);
+	return pElement;
+}
+
+XMLElement* createChild(string elementName, string attrib_key[][2], int size, XMLElement* parentElement){
+	XMLElement * pElement = xmlDoc.NewElement(elementName.c_str());
+	int i;
+	fr(i, size){
+		// Iterate through the array and add the attributes and actual text.
+		pElement->SetAttribute(attrib_key[i][0].c_str(), attrib_key[i][1].c_str());
+	}
+	parentElement->InsertEndChild(pElement);
+	return pElement;
 }
 
 int saveXMLDocument(string name){

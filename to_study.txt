@@ -1,0 +1,4 @@
+morphological analysis=> porter's algorithm (stemming)
+lexical analysis=> segmentation
+term coordination matching
+recall cutoff method

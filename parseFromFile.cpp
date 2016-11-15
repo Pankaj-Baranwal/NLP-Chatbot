@@ -7,16 +7,33 @@
 
 using namespace std;
 
-
+// File to take converation input from
 string g_file_name = "sample.txt";
+// File which contains the dictionary
 string dictionary_file = "sample_words.txt";
 
+// All the words which have been processed from the conversation
 string tokens[2048];
+// Actual content which will be uploaded to the XML.
 string xml_uploads[2048][3];
-int current = 0, max_words = 0;
+
+// stores last index of token which has been filled.
+int current = 0;
+
 int count_words_per_message[10];
+
+// Name of the people conversing
 string name1, name2;
+
+// stores last index of xml content which has been filled.
 int current_xml = 0;
+
+
+void update_xml(string message_number, string current_word, string category){
+	xml_uploads[current_xml][0] = message_number;
+	xml_uploads[current_xml][1] = current_word;
+	xml_uploads[current_xml++][2] = category;
+}
 
 void searchWordInDictionary(string word, string message_number){
 	ifstream file (dictionary_file.c_str());
@@ -38,9 +55,7 @@ void searchWordInDictionary(string word, string message_number){
 				else if (!strcmp(word.c_str(), current_word.c_str()))
 				{
 					found_word = 1;
-					xml_uploads[current_xml][0] = message_number;
-					xml_uploads[current_xml][1] = current_word;
-					xml_uploads[current_xml++][2] = category;
+					update_xml(message_number, current_word, category);
 					break;
 				}
 				current_word = "";
@@ -50,8 +65,46 @@ void searchWordInDictionary(string word, string message_number){
 	file.close();
 }
 
-int main(){
-	createXMLDocument();
+void uploadToXML(){
+	int i;
+	string count = "";
+	fr(i, current_xml){
+		if (count != xml_uploads[i][0]){
+			count = xml_uploads[i][0];
+			int j;
+			std::istringstream ss(count);
+			ss >> j;
+			cout << j << endl;
+			if (j%2==0)
+			{
+				string attributes[][2]={{"name", name1}};
+				XMLElement * pElement = createChild("Person", attributes, 1);
+				XMLElement * pElement1 = createChild("Message", attributes, 0, pElement);
+				while (count == xml_uploads[i][0]){
+					attributes[0][0] = "category";
+					attributes[0][1] = xml_uploads[i][2];
+					addDatatoXMLElement(pElement1, "Word", xml_uploads[i][1], attributes, 1);
+					i++;
+				}
+				i--;
+			}else{
+				string attributes[][2]={{"name", name2}};
+				XMLElement * pElement = createChild("Person", attributes, 1);
+				XMLElement * pElement1 = createChild("Message", attributes, 0, pElement);
+				while (count == xml_uploads[i][0]){
+					attributes[0][0] = "category";
+					attributes[0][1] = xml_uploads[i][2];
+					addDatatoXMLElement(pElement1, "Word", xml_uploads[i][1], attributes, 1);
+					i++;
+				}
+				i--;
+			}
+		}
+	}
+	saveXMLDocument("SavedData.xml");
+}
+
+string getFileContent(){
 	ifstream file (g_file_name.c_str());
 	string file_content;
 	if (file.is_open()){
@@ -60,8 +113,13 @@ int main(){
 			file_content += x;
 		}
 	}
-	// cout << file_content;
 	file.close();
+	return file_content;
+}
+
+int main(){
+	createXMLDocument();
+	string file_content = getFileContent();
 	int i;
 	int counter = 0;
 	int num_of_words = 0;
@@ -124,5 +182,13 @@ int main(){
 		ss << k;
 		searchWordInDictionary(replacement, ss.str());
 	}
+
+	fr(i, current_xml){
+		cout << xml_uploads[i][0] << "  ";
+		cout << xml_uploads[i][1] << "  ";
+		cout << xml_uploads[i][2] << "  ";
+		cout << endl;
+	}
+	uploadToXML();
 	// saveXMLDocument("SavedData.xml");
 }
