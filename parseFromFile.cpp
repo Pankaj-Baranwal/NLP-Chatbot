@@ -43,6 +43,17 @@ string getCategory(string word){
 	}
 	fin.close();
 }
+
+string trim(string word){
+	string temp="";
+	for(int i=0;i<word.length();i++) {
+		if( (word[i]>='A' && word[i]<='Z') || (word[i]>='a' && word[i]<='z') ||(word[i]>='0' && word[i]<='9') ) {
+			temp+=word[i];
+		}
+	}
+	return temp;
+}
+
 int main(){
 	createXMLDocument();
 	
@@ -84,6 +95,7 @@ int main(){
 				} else {
 					if( can_be_proper_noun ) {
 						string attributes[][2]={{"category", "noun"}};
+						temp = trim(temp);
 						addDatatoXMLElement(pElement1, "Word", temp , attributes, 1);
 					}
 				}
@@ -95,5 +107,5 @@ int main(){
 		}
 	}
 	saveXMLDocument("SavedData.xml");
-	cout<<"Data saved to SavedData.xml"
+	cout<<"Data saved to SavedData.xml\n";
 }

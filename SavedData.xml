@@ -14,7 +14,7 @@
             <Word category="pronoun">my</Word>
             <Word category="noun">name</Word>
             <Word category="verb">is</Word>
-            <Word category="noun">bob.</Word>
+            <Word category="noun">bob</Word>
         </Message>
     </Person>
     <Person name="person1">
@@ -30,7 +30,7 @@
     </Person>
     <Person name="person2">
         <Message>
-            <Word category="noun">hmm!</Word>
+            <Word category="noun">hmm</Word>
             <Word category="pronoun">she</Word>
             <Word category="verb">is</Word>
             <Word category="extra">with</Word>
