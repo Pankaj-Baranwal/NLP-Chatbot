@@ -2,7 +2,7 @@
     <Person name="person1">
         <Message>
             <Word category="extra">hey</Word>
-            <Word category="extra">hi</Word>
+            <Word category="proper_noun">hi</Word>
             <Word category="question">whats</Word>
             <Word category="pronoun">your</Word>
             <Word category="noun">name</Word>
@@ -14,7 +14,7 @@
             <Word category="pronoun">my</Word>
             <Word category="noun">name</Word>
             <Word category="verb">is</Word>
-            <Word category="article">a</Word>
+            <Word category="proper_noun">akshit</Word>
         </Message>
     </Person>
     <Person name="person1">
