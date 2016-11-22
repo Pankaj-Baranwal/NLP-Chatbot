@@ -30,7 +30,7 @@ string rule[] = {
     "4 a",
     "5 b",
     "6 c",
-    "7 d", 
+    "7 d",
 };
 
 #define MAX 100
@@ -138,24 +138,31 @@ string gen_comb(string a, string b)  //creates every combination of variables fr
 }
 
 // VP = 1, PP = 2, NP = 3, N = 4, V = 5, P = 6, Det = 7
-// string convert(string m){
-//     cout << "11"<<m <<endl;
-//     if (m=="1"){
-//         return "VP";
-//     }else if (m=="2"){
-//         return "PP";
-//     }else if (m=="3"){
-//         return "NP";
-//     }else if (m=="4"){
-//         return "N";
-//     }else if (m=="5"){
-//         return "V";
-//     }else if (m=="6"){
-//         return "P";
-//     }else if (m=="7"){
-//         return "Det";
-//     }
-// }
+string convert(string m){
+    int i;
+    string return_string = "";
+    fr (i, 0, m.length())
+    {
+        if (m[i]=='1'){
+            return_string += "VP";
+        }else if (m[i]=='2'){
+            return_string += "PP";
+        }else if (m[i]=='3'){
+            return_string += "NP";
+        }else if (m[i]=='4'){
+            return_string += "N";
+        }else if (m[i]=='5'){
+            return_string += "V";
+        }else if (m[i]=='6'){
+            return_string += "P";
+        }else if (m[i]=='7'){
+            return_string += "Det";
+        }else if (m[i]=='S'){
+            return_string += "S";
+        }else return_string += "";
+    }
+    return return_string;
+}
  
 int main()
 {
@@ -174,9 +181,10 @@ int main()
             gram[i][j+1]=dpr[j];
         }
     }
-    string matrix[MAX][MAX],st;
+    string matrix[MAX][MAX],st; // MATRIX stores the table containing the parse tree.
     string str = "she eats a fish with a fork";
     cout << str << endl;
+    string original = str;
     str = replaceWordsWithSymbols(str);
     fr(i,0,str.length())       //Assigns values to principal diagonal of matrix
     {
@@ -217,12 +225,21 @@ int main()
         l=str.length()-i-1;
         fr(j,l,str.length())
         {
-            cout<<setw(2)<<matrix[k++][j]<<" ";
+            string h = convert(matrix[k++][j]);
+            cout<<setw(5)<<h<<" ";
         }
         cout<<endl;
     }
+
+    while (original.find(" ")<original.length())
+    {
+        cout << setw(5) << original.substr(0, original.find(" "))<<" ";
+        original = original.substr(original.find(" ")+1, original.length());
+    }
+    cout << setw(5) << original << endl;
              
     int f=0;
+    cout << endl;
     if(matrix[0][str.length()-1].find('S') <= matrix[0][str.length()-1].length())   //Checks if last element of first row contains 'S'
     {
         cout<<"THIS IS A VALID SENTENCE\n";
