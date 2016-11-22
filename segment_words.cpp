@@ -13,10 +13,14 @@ map<string,int> mm;
 // stores the finally chosen characters.
 int dp[100000];
 
-const int len_ch = 48;
+const int len_ch = 52;
 
 string ch[len_ch]={
 "awkward",
+"th",
+"ha",
+"theh",
+"eha",
 "back",
 "backed",
 "background",
@@ -126,20 +130,50 @@ void print_ans(int pos,int len,string x)
     print_ans(dp[pos]+1,len,x);
 }
 
-
-int main()
+string ans(int pos,int len,string x)
 {
-  int i,t;
+    if(pos==len)
+        return "";
+   int i;
+   string w = "";
+   // dp[pos] stores the end index of each word.
+    fra(i, pos, dp[pos]+1)
+    {
+       w += x[i];
+    }
+    w += " ";
+    return w + ans(dp[pos]+1, len, x);
+}
+
+
+// int main()
+// {
+//   int i,t;
+//   fr(i,len_ch)
+//   {
+//      mm.insert ( pair<string,int>(ch[i],1) );
+//   }
+//   string x = "hmmm";
+
+//   int len = x.length();
+
+//   fun(0,len,x);
+//   // cout << main_sentence << endl;
+//   print_ans(0,len,x);
+//   cout<<"\n";
+// }
+
+string segmentIntoWords(string word){
+    int i,t;
   fr(i,len_ch)
   {
      mm.insert ( pair<string,int>(ch[i],1) );
   }
-  string x = "lovesnails";
 
-  int len = x.length();
+  // string word = "thecatinthehat";
 
-  fun(0,len,x);
-  cout << main_sentence << endl;
-  print_ans(0,len,x);
-  cout<<"\n";
+  int len = word.length();
+
+  fun(0,len,word);
+  return ans(0,len,word);
 }

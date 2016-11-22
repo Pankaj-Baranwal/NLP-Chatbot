@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <fstream>		//header for file-handling.
 #include "senetence_parser.cpp"
+#include "segment_words.cpp"
 // #include "segment_words.cpp"
 #include <locale>
 #include <sstream>
@@ -28,13 +29,18 @@ string name1, name2;
 // stores last index of xml content which has been filled.
 int current_xml = 0;
 
-
+// Function to update entries in the array containing the data to be uploaded to XML doc.
 void update_xml(string message_number, string current_word, string category){
+
+	// message_number => How many messages have already been exchanged.
 	xml_uploads[current_xml][0] = message_number;
+	// current_word => the word which needs to be uploaded
 	xml_uploads[current_xml][1] = current_word;
+	// category => which Part of speech does the above word belong to.
 	xml_uploads[current_xml++][2] = category;
 }
 
+// Function to search the current word in available dictionary and send it for storage.
 void searchWordInDictionary(string word, string message_number){
 	ifstream file (dictionary_file.c_str());
 	int found_word = 0;
@@ -61,6 +67,9 @@ void searchWordInDictionary(string word, string message_number){
 				current_word = "";
 			}
 		}
+	}
+	if (!found_word){
+		// Call segment_words here
 	}
 	file.close();
 }
@@ -116,6 +125,37 @@ string getFileContent(){
 	file.close();
 	return file_content;
 }
+
+// int findProperNouns(int position){
+// 	int count_proper = 0;
+// 	string designation[] = {"mr", "mrs", "dr", "prof", "ms"};
+// 	int i =0;
+// 	int found = 0;
+// 	string lower_word;
+// 	std::locale loc;
+// 	fr (j, tokens[position-1].length())
+// 		lower_word += tolower(tokens[i-1][j], loc);
+// 	fr(i, sizeof(designation)/sizeof(designation[0])){
+// 		if (!strcmp(lower_word.c_str(), designation[i].c_str()))
+// 		{
+// 			found = 1;
+// 		}
+// 	}
+// 	if (found)
+// 	{
+// 		count_proper++;
+// 		int capital = 1;
+// 		while (capital){
+// 			if (tokens[position][0]>='A' && tokens[position][0]<='Z')
+// 			{
+// 				position++;
+// 			}else{
+// 				capital = 0;
+// 			}
+// 		}
+// 		return position;
+// 	}
+// }
 
 int main(){
 	createXMLDocument();
