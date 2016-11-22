@@ -12,65 +12,6 @@ using namespace std;
 map<string,int> mm;
 // stores the finally chosen characters.
 int dp[100000];
-
-const int len_ch = 52;
-
-string ch[len_ch]={
-"awkward",
-"th",
-"ha",
-"theh",
-"eha",
-"back",
-"backed",
-"background",
-"backing",
-"hey",
-"hi",
-"what",
-"whats",
-"name",
-"my",
-"is",
-"am",
-"are",
-"was",
-"were",
-"there",
-"cat",
-"cats",
-"in",
-"the",
-"hat",
-"no",
-"she",
-"playing",
-"with",
-"*article",
-"a",
-"an",
-"the",
-"*pronoun",
-"you",
-"he",
-"she",
-"i",
-"my",
-"they",
-"love",
-"mango",
-"man",
-"go",
-"ice",
-"cream",
-"icecream",
-"love",
-"snails",
-"nails",
-"loves",
-// add all words present in the language here.
-};
-
 // Just to print all the words.
 string main_sentence="";
 
@@ -145,32 +86,13 @@ string ans(int pos,int len,string x)
     return w + ans(dp[pos]+1, len, x);
 }
 
-
-// int main()
-// {
-//   int i,t;
-//   fr(i,len_ch)
-//   {
-//      mm.insert ( pair<string,int>(ch[i],1) );
-//   }
-//   string x = "hmmm";
-
-//   int len = x.length();
-
-//   fun(0,len,x);
-//   // cout << main_sentence << endl;
-//   print_ans(0,len,x);
-//   cout<<"\n";
-// }
-
 string segmentIntoWords(string word){
-    int i,t;
-  fr(i,len_ch)
-  {
-     mm.insert ( pair<string,int>(ch[i],1) );
+  string dictionary_file = "sample_words.txt";
+  ifstream fin (dictionary_file.c_str());
+  string temp="";
+  while( fin >> temp ){
+    mm.insert ( pair<string,int>(temp,1) );
   }
-
-  // string word = "thecatinthehat";
 
   int len = word.length();
 
