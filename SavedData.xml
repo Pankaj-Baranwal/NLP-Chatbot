@@ -2,7 +2,7 @@
     <Person name="person1">
         <Message>
             <Word category="extra">hey</Word>
-            <Word category="proper_noun">hi</Word>
+            <Word category="extra">hi</Word>
             <Word category="question">whats</Word>
             <Word category="pronoun">your</Word>
             <Word category="noun">name</Word>
