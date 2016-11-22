@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <fstream>		//header for file-handling.
-#include "senetence_parser.cpp"
+#include "XMLHelper.cpp"
 #include "segment_words.cpp"
 #include <locale>
 #include <sstream>
@@ -80,23 +80,24 @@ int main(){
 			pElement1 = createChild("Message", attributes, 0, pElement);					
 		} else  {
 			if( !searchWordInDictionary(temp) ){
-				string splitted_word = segmentIntoWords(temp);
-				splitted_word = splitted_word.substr(0,splitted_word.length()-1);
-				if( splitted_word.length() > temp.length() ){
-					istringstream iss(splitted_word);
-					while( iss >> tmp ){
-						if(searchWordInDictionary(tmp)){
-							//store tmp in xml for current person
-							string attributes[][2]={{"category", getCategory(tmp).c_str()}};
-							addDatatoXMLElement(pElement1, "Word", tmp , attributes, 1);
-			
-						}
-					}
+				if( can_be_proper_noun ) {
+					string attributes[][2]={{"category", "proper_noun"}};
+					temp = trim(temp);
+					addDatatoXMLElement(pElement1, "Word", temp , attributes, 1);
 				} else {
-					if( can_be_proper_noun ) {
-						string attributes[][2]={{"category", "proper_noun"}};
-						temp = trim(temp);
-						addDatatoXMLElement(pElement1, "Word", temp , attributes, 1);
+					string splitted_word = segmentIntoWords(temp);
+					splitted_word = splitted_word.substr(0,splitted_word.length()-1);
+				
+					if( splitted_word.length() > temp.length() ){
+						istringstream iss(splitted_word);
+						while( iss >> tmp ){
+							if(searchWordInDictionary(tmp)){
+								//store tmp in xml for current person
+								string attributes[][2]={{"category", getCategory(tmp).c_str()}};
+								addDatatoXMLElement(pElement1, "Word", tmp , attributes, 1);
+			
+							}
+						}
 					}
 				}
 			} else {
