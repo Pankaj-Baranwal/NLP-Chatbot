@@ -14,14 +14,14 @@
             <Word category="pronoun">my</Word>
             <Word category="noun">name</Word>
             <Word category="verb">is</Word>
-            <Word category="proper_noun">bob</Word>
+            <Word category="article">a</Word>
         </Message>
     </Person>
     <Person name="person1">
         <Message>
             <Word category="proper_noun">bob</Word>
             <Word category="verb">is</Word>
-            <Word category="article">the</Word>
+            <Word category="pronoun">there</Word>
             <Word category="noun">cat</Word>
             <Word category="extra">in</Word>
             <Word category="article">the</Word>
@@ -30,9 +30,11 @@
     </Person>
     <Person name="person2">
         <Message>
-            <Word category="proper_noun">hmm</Word>
+            <Word category="proper_noun">no</Word>
             <Word category="pronoun">she</Word>
             <Word category="verb">is</Word>
+            <Word category="verb">play</Word>
+            <Word category="extra">in</Word>
             <Word category="extra">with</Word>
             <Word category="noun">hat</Word>
         </Message>
