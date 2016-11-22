@@ -1,31 +1,36 @@
-#include<iostream>  
+#include<iostream>
+#include<string>
 #include<cstring>
 #include<algorithm>
-#include<string>
-#include<cassert>
 #include<iomanip>
+
 using namespace std;
 
+// Please add a whitespace at the end of each string.
 string value[] = {
     // A => Nouns
-    "A fish pond boy girl ocean food table room knowledge ball apple",
+    "a fish pond boy girl ocean food table room knowledge ball apple she fork ",
     // B => Verbs
-    "B eats swims ate saw put",
+    "b eats swims ate saw put ",
     // C => Prepositions
-    "C of about on in with",
+    "c of about on in with ",
     // D => Determinants
-    "D a an the this that",
+    "d a an the this that ",
 };
 
+int length_of_value = 4;
+
+
+// VP = 1, PP = 2, NP = 3, N = 4, V = 5, P = 6, Det = 7
 string rule[] = {
-    "S NP VP",
-    "VP VP PP|V NP|V",
-    "PP P NP",
-    "NP Det N|NP PP|N",
-    "N A",
-    "V B",
-    "P C",
-    "Det D",
+    "S 31",
+    "1 12|53|b",
+    "2 63|6",
+    "3 74|4|a",
+    "4 a",
+    "5 b",
+    "6 c",
+    "7 d", 
 };
 
 #define MAX 100
@@ -35,9 +40,39 @@ string gram[MAX][MAX];  // Each row stores dpr for that production.
 string dpr[MAX];        // dpr-> Each index stores one rule for a production till p.
 int p;                  // p-> Max number of combination of rules for each production. 
                         // Example: For S, p = 2
-int np = 11;            // np-> number of productions
- 
-inline string concat( string a, string b)   //concatenates unique non-terminals
+int np = 8;            // np-> number of productions
+
+string replaceWordsWithSymbols(string sentence) // Replace the words in the input sentence with production-readable symbols
+{
+    string return_string = "";
+    string word;
+    int i;
+    while (sentence.find(" ") < sentence.length())
+    {
+        word = " " + sentence.substr(0, sentence.find(" ")+1);
+        sentence = sentence.substr(sentence.find(" ")+1, sentence.length());
+        fr(i, 0, length_of_value)
+        {
+            if (value[i].find(word) < value[i].length())
+            {
+                return_string += value[i][0];
+                break;
+            }
+        }
+    }
+    word = " " + sentence + " ";
+    fr(i, 0, length_of_value)
+    {
+        if (value[i].find(word) < value[i].length())
+        {
+            return_string += value[i][0];
+            break;
+        }
+    }
+    return return_string;
+}
+
+string concat(string a, string b)   //concatenates unique non-terminals
 {
     int i;
     string r=a;
@@ -47,7 +82,7 @@ inline string concat( string a, string b)   //concatenates unique non-terminals
     return (r);
 }
  
-inline void break_gram(string a)    //seperates right hand side of entered grammar
+void break_gram(string a)    // Breaks OR separated rules for each production
 {
     int i;
     p=0;
@@ -67,8 +102,9 @@ inline void break_gram(string a)    //seperates right hand side of entered gramm
     }
 }
  
-inline string search_prod(string p) //returns a concatenated string of variables which can produce string p
+string search_prod(string p) // returns a concatenated string of variables which can produce string p
 {
+    // cout << "p = " << p << endl;
     int j,k;
     string r="";
     fr(j,0,np)
@@ -86,8 +122,9 @@ inline string search_prod(string p) //returns a concatenated string of variables
     return r;
 }
  
-inline string gen_comb(string a, string b)  //creates every combination of variables from a and b . For eg: BA * AB = {BA, BB, AA, BB}
+string gen_comb(string a, string b)  //creates every combination of variables from a and b . For eg: BA * AB = {BA, BB, AA, BB}
 {
+    // cout << "a = "<< a << "b = " << b << endl;
     int i,j;
     string pri=a,re="";
     fr(i,0,a.length())
@@ -99,12 +136,32 @@ inline string gen_comb(string a, string b)  //creates every combination of varia
         }       
     return re;
 }
+
+// VP = 1, PP = 2, NP = 3, N = 4, V = 5, P = 6, Det = 7
+// string convert(string m){
+//     cout << "11"<<m <<endl;
+//     if (m=="1"){
+//         return "VP";
+//     }else if (m=="2"){
+//         return "PP";
+//     }else if (m=="3"){
+//         return "NP";
+//     }else if (m=="4"){
+//         return "N";
+//     }else if (m=="5"){
+//         return "V";
+//     }else if (m=="6"){
+//         return "P";
+//     }else if (m=="7"){
+//         return "Det";
+//     }
+// }
  
 int main()
 {
-    int i,pt,j,l,k;
-    string a,str,r,pr,start;
-    start = "S";
+    int i, j, k, l;
+    int pt;         // Find first location of whitespace in production
+    string a,r,pr;
     fr(i,0,np)
     {
         a = rule[i];
@@ -118,7 +175,9 @@ int main()
         }
     }
     string matrix[MAX][MAX],st;
-    str = "fish swims in the ocean";
+    string str = "she eats a fish with a fork";
+    cout << str << endl;
+    str = replaceWordsWithSymbols(str);
     fr(i,0,str.length())       //Assigns values to principal diagonal of matrix
     {
         r="";
@@ -138,7 +197,6 @@ int main()
         }
         matrix[i][i]=r;
     }
-    int ii,kk;
     fr(k,1,str.length())       //Assigns values to upper half of the matrix
     {
         fr(j,k,str.length())
@@ -159,18 +217,17 @@ int main()
         l=str.length()-i-1;
         fr(j,l,str.length())
         {
-            cout<<setw(5)<<matrix[k++][j]<<" ";
+            cout<<setw(2)<<matrix[k++][j]<<" ";
         }
         cout<<endl;
     }
              
     int f=0;
-    fr(i,0,start.length())
-        if(matrix[0][str.length()-1].find(start[i]) <= matrix[0][str.length()-1].length())   //Checks if last element of first row contains a Start variable
-        {
-            cout<<"String can be generated\n";
-            return 0;
-        }
-    cout<<"String cannot be generated\n";
+    if(matrix[0][str.length()-1].find('S') <= matrix[0][str.length()-1].length())   //Checks if last element of first row contains 'S'
+    {
+        cout<<"THIS IS A VALID SENTENCE\n";
+        return 0;
+    }
+    cout<<"THIS IS NOT A VALID SENTENCE\n";
     return 0;
 }
