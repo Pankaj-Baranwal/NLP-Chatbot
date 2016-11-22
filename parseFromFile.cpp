@@ -94,7 +94,7 @@ int main(){
 					}
 				} else {
 					if( can_be_proper_noun ) {
-						string attributes[][2]={{"category", "noun"}};
+						string attributes[][2]={{"category", "proper_noun"}};
 						temp = trim(temp);
 						addDatatoXMLElement(pElement1, "Word", temp , attributes, 1);
 					}
